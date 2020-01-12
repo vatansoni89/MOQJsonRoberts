@@ -62,9 +62,9 @@ namespace Loans.Tests
                 It.IsAny<string>(),
                 ref It.Ref<IdentityVerificationStatus>.IsAny))
                 .Callback(new ValidateCallback(
-                    (string applicantName, 
-                        int applicantAge, 
-                        string applicantAddress, 
+                    (string applicantName,
+                        int applicantAge,
+                        string applicantAddress,
                 ref IdentityVerificationStatus status) => status = new IdentityVerificationStatus(true)));
 
             var mockCreditScorer = new Mock<ICreditScorer>();
@@ -76,5 +76,22 @@ namespace Loans.Tests
             //It fails as LoanApplicationProcessor dont accept Null arguments. 
             Assert.That(loanApplication.GetIsAccepted(),Is.True);
         }
+
+        [Test]
+        public void NullReturnExample()
+        { 
+            var mock = new Mock<INullExample>();
+
+            mock.Setup(x=>x.SomeMethod()).Returns<string>(null);
+
+            string mockReturnvalue = mock.Object.SomeMethod();
+
+            Assert.That(mockReturnvalue, Is.Null);
+        }
+    }
+
+    public interface INullExample
+    { 
+        string SomeMethod();
     }
 }
