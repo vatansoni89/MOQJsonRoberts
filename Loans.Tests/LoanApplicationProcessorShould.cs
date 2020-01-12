@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Loans.Domain.Applications;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Moq;
 using NUnit.Framework;
 
@@ -17,7 +18,7 @@ namespace Loans.Tests
             
             var loanProduct = new LoanProduct(1,"Loan",8.35m);
             var loanAmount = new LoanAmount("inr",3500000);
-            var loanApplication = new LoanApplication(1, loanProduct,loanAmount, "Vatan",35,"Ekta Nagar",100000 );
+            var loanApplication = new LoanApplication(1, loanProduct,loanAmount, "Vatan",35,"Ekta Nagar",50000 );
 
             var mockIdentityVerifier = new Mock<IIdentityVerifier>();
             var mockCreditScorer = new Mock<ICreditScorer>();
@@ -27,6 +28,11 @@ namespace Loans.Tests
             //It fails as LoanApplicationProcessor dont accept Null arguments. 
             Assert.That(loanApplication.GetIsAccepted(),Is.False);
         }
+
+        delegate void ValidateCallback(string applicantName, 
+            int applicantAge, 
+            string applicantAddress, 
+            ref IdentityVerificationStatus status);
 
         [Test]
         public void Accept()
@@ -42,12 +48,24 @@ namespace Loans.Tests
             //Setup for any type matching args
             //mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
 
-            //setup for output var
-            bool isValidOutValue = true;
-            mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(),
+            ////setup for output var
+            //bool isValidOutValue = true;
+            //mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(),
+            //    It.IsAny<int>(),
+            //    It.IsAny<string>(),
+            //    out isValidOutValue));
+
+            //setup for ref var
+            mockIdentityVerifier
+                .Setup(x => x.Validate(It.IsAny<string>(),
                 It.IsAny<int>(),
                 It.IsAny<string>(),
-                out isValidOutValue));
+                ref It.Ref<IdentityVerificationStatus>.IsAny))
+                .Callback(new ValidateCallback(
+                    (string applicantName, 
+                        int applicantAge, 
+                        string applicantAddress, 
+                ref IdentityVerificationStatus status) => status = new IdentityVerificationStatus(true)));
 
             var mockCreditScorer = new Mock<ICreditScorer>();
             //mockCreditScorer.Setup(x => x.CalculateScore("Vatan", "Ekta Nagar")); //It returns null so could not be used.

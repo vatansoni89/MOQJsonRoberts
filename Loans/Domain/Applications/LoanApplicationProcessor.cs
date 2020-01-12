@@ -42,16 +42,28 @@ namespace Loans.Domain.Applications
             //                                                 application.GetApplicantAge(), 
             //                                                 application.GetApplicantAddress());
 
+            //_identityVerifier.Validate(application.GetApplicantName(), 
+            //    application.GetApplicantAge(), 
+            //    application.GetApplicantAddress(), out var isValidIdentity);
+
+            //if (!isValidIdentity)
+            //{
+            //    application.Decline();
+            //    return;
+            //}
+
+            IdentityVerificationStatus status = null; 
+
             _identityVerifier.Validate(application.GetApplicantName(), 
                 application.GetApplicantAge(), 
-                application.GetApplicantAddress(), out var isValidIdentity);
+                application.GetApplicantAddress(), 
+                ref status);
 
-            if (!isValidIdentity)
+            if (!status.Passed)
             {
                 application.Decline();
                 return;
             }
-
 
             //_creditScorer.CalculateScore(application.GetApplicantName(), 
             //                             application.GetApplicantAddress());
