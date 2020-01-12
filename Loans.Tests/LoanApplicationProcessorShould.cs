@@ -46,29 +46,14 @@ namespace Loans.Tests
             //mockIdentityVerifier.Setup(x => x.Validate("Vatan", 35, "Ekta Nagar")).Returns(true);
 
             //Setup for any type matching args
-            //mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
+            mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
 
-            ////setup for output var
-            //bool isValidOutValue = true;
-            //mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(),
-            //    It.IsAny<int>(),
-            //    It.IsAny<string>(),
-            //    out isValidOutValue));
-
-            //setup for ref var
-            mockIdentityVerifier
-                .Setup(x => x.Validate(It.IsAny<string>(),
-                It.IsAny<int>(),
-                It.IsAny<string>(),
-                ref It.Ref<IdentityVerificationStatus>.IsAny))
-                .Callback(new ValidateCallback(
-                    (string applicantName,
-                        int applicantAge,
-                        string applicantAddress,
-                ref IdentityVerificationStatus status) => status = new IdentityVerificationStatus(true)));
 
             var mockCreditScorer = new Mock<ICreditScorer>();
             //mockCreditScorer.Setup(x => x.CalculateScore("Vatan", "Ekta Nagar")); //It returns null so could not be used.
+
+            //set property
+            mockCreditScorer.Setup(x => x.Score).Returns(300);
 
             var lap = new LoanApplicationProcessor(mockIdentityVerifier.Object, mockCreditScorer.Object);
             lap.Process(loanApplication);

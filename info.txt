@@ -13,7 +13,7 @@ MOQ:
 	  - mock method returns
 	Mocks:
 	  - verify interactions like if Property were accessed or Method were called.
-	Mocking:
+	Mocking Function and Return Value:
 	  FunctionWithReturnType:
 	    Setup(lymbdaExpr).Returns(ReturnType)
 	  Setup for any type match args:
@@ -22,6 +22,12 @@ MOQ:
 	    Shelved
       Setup for ref var:
 	    Shelved
+	Mocking Properties:
+	  Configure a Mocked Property:
+	    mockCreditScorer.Setup(x => x.Score).Returns(300);
+	  AutoMocking Property Hierarchy:
+	    
+	  
 	  
 	   
 	  
