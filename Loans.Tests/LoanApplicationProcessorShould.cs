@@ -40,7 +40,14 @@ namespace Loans.Tests
             //mockIdentityVerifier.Setup(x => x.Validate("Vatan", 35, "Ekta Nagar")).Returns(true);
 
             //Setup for any type matching args
-            mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
+            //mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
+
+            //setup for output var
+            bool isValidOutValue = true;
+            mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(),
+                It.IsAny<int>(),
+                It.IsAny<string>(),
+                out isValidOutValue));
 
             var mockCreditScorer = new Mock<ICreditScorer>();
             //mockCreditScorer.Setup(x => x.CalculateScore("Vatan", "Ekta Nagar")); //It returns null so could not be used.

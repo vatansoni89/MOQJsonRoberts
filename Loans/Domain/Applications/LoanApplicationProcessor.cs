@@ -38,9 +38,13 @@ namespace Loans.Domain.Applications
 
             _identityVerifier.Initialize();
 
-            var isValidIdentity = _identityVerifier.Validate(application.GetApplicantName(), 
-                                                             application.GetApplicantAge(), 
-                                                             application.GetApplicantAddress());
+            //var isValidIdentity = _identityVerifier.Validate(application.GetApplicantName(), 
+            //                                                 application.GetApplicantAge(), 
+            //                                                 application.GetApplicantAddress());
+
+            _identityVerifier.Validate(application.GetApplicantName(), 
+                application.GetApplicantAge(), 
+                application.GetApplicantAddress(), out var isValidIdentity);
 
             if (!isValidIdentity)
             {
