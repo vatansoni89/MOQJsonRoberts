@@ -5,7 +5,12 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loans", "Loans\Loans.csproj", "{0D3BF21B-51F5-4A43-AC06-66F5031BA5A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loans.Tests", "Loans.Tests\Loans.Tests.csproj", "{A7DCA12C-BDD0-49B9-BE24-F6D3BF6761BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loans.Tests", "Loans.Tests\Loans.Tests.csproj", "{A7DCA12C-BDD0-49B9-BE24-F6D3BF6761BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4CA60B1-AF79-4F74-8E12-BF3E92EFB230}"
+	ProjectSection(SolutionItems) = preProject
+		info.txt = info.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

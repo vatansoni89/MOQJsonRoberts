@@ -1,0 +1,20 @@
+MOQ:
+  Test Double:
+    Fakes: 
+	  - work implimentation.
+	  - not suitable for EF Core in-memory provider
+	Dummies:
+	  - Passed around i.e regular references
+	  - Never used
+	  - satisfy parameters
+	Stubs: 
+	  - provide answers to calls for mock object
+	  - mock property returns
+	  - mock method returns
+	Mocks:
+	  - verify interactions like if Property were accessed or Method were called.
+	Mocking:
+	  FunctionWithReturnType:
+	    Setup(lymbdaExpr).Returns(ReturnType)
+	   
+	  
