@@ -47,21 +47,12 @@ namespace Loans.Tests
 
             //Setup for any type matching args
             mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
-            
-            //set below property hierarchy Manually, Score is int
+
+            //set below property hierarchy Autometically, Score is int
             //_creditScorer.ScoreResult.ScoreValue.Score
-            
-            //ScoreValue.Score
-            var mockScoreValue = new Mock<ScoreValue>();
-            mockScoreValue.Setup(x => x.Score).Returns(300);
 
-            //ScoreResult.ScoreValue
-            var mockScoreResult = new Mock<ScoreResult>();
-            mockScoreResult.Setup(x => x.ScoreValue).Returns(mockScoreValue.Object);
-
-            //_creditScorer.ScoreResult
             var mockCreditScorer = new Mock<ICreditScorer>();
-            mockCreditScorer.Setup(x => x.ScoreResult).Returns(mockScoreResult.Object);
+            mockCreditScorer.Setup(x => x.ScoreResult.ScoreValue.Score).Returns(300);
 
             var lap = new LoanApplicationProcessor(mockIdentityVerifier.Object, mockCreditScorer.Object);
             lap.Process(loanApplication);
