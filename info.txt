@@ -25,8 +25,12 @@ MOQ:
 	Mocking Properties:
 	  Configure a Mocked Property:
 	    mockCreditScorer.Setup(x => x.Score).Returns(300);
-	  AutoMocking Property Hierarchy:
-	    
+	  AutoMocking virtual Property Hierarchy:
+	    mockCreditScorer.Setup(x => x.ScoreResult.ScoreValue.Score).Returns(300);
+	  Automocking default virtual hierarchy:
+	    DefaultValue = DefaultValue.Mock: It creates till end and initialize types with mock objects.
+	    DefaultValue = DefaultValue.Empty: It dont create till end and initialize first type prop with null.
+	  
 	  
 	  
 	   

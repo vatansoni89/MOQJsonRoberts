@@ -51,7 +51,10 @@ namespace Loans.Tests
             //set below property hierarchy Autometically, Score is int
             //_creditScorer.ScoreResult.ScoreValue.Score
 
-            var mockCreditScorer = new Mock<ICreditScorer>();
+            //Below code set default values to hierarchy like 0 to Score
+            var mockCreditScorer = new Mock<ICreditScorer>() {DefaultValue = DefaultValue.Mock};
+
+            //below code set specific value
             mockCreditScorer.Setup(x => x.ScoreResult.ScoreValue.Score).Returns(300);
 
             var lap = new LoanApplicationProcessor(mockIdentityVerifier.Object, mockCreditScorer.Object);
