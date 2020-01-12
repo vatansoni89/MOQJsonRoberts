@@ -37,11 +37,14 @@ namespace Loans.Tests
             var loanApplication = new LoanApplication(1, loanProduct,loanAmount, "Vatan",35,"Ekta Nagar",100000 );
 
             var mockIdentityVerifier = new Mock<IIdentityVerifier>();
-            mockIdentityVerifier.Setup(x => x.Validate("Vatan", 35, "Ekta Nagar")).Returns(true);
+            //mockIdentityVerifier.Setup(x => x.Validate("Vatan", 35, "Ekta Nagar")).Returns(true);
+
+            //Setup for any type matching args
+            mockIdentityVerifier.Setup(x => x.Validate(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
 
             var mockCreditScorer = new Mock<ICreditScorer>();
             //mockCreditScorer.Setup(x => x.CalculateScore("Vatan", "Ekta Nagar")); //It returns null so could not be used.
-            
+
             var lap = new LoanApplicationProcessor(mockIdentityVerifier.Object, mockCreditScorer.Object);
             lap.Process(loanApplication);
 
