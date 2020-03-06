@@ -30,6 +30,10 @@ MOQ:
 	  Automocking default virtual hierarchy:
 	    DefaultValue = DefaultValue.Mock: It creates till end and initialize types with mock objects.
 	    DefaultValue = DefaultValue.Empty: It dont create till end and initialize first type prop with null.
+	  Verify If Function got called:
+	    var clusterDataRepository = _autoMock.Mock<IClusterDataRepository>();
+            clusterDataRepository.Setup(x => x.SaveClusterData(It.IsAny<MFAppBase.Cluster>())).Returns(It.IsAny<int>);
+	    clusterDataRepository.Verify(x=>x.SaveClusterData(It.IsAny<MFAppBase.Cluster>()),Times.Once);
 	  
 	  
 	  
